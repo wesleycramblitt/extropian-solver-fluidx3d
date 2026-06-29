@@ -6,9 +6,9 @@ project(extropian-solver-fluidx3d VERSION 0.1.0 LANGUAGES CXX
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(ext-core REQUIRED)
-find_package(ext-physics REQUIRED)
-find_package(ext-render REQUIRED)
+find_package(exd-core REQUIRED)
+find_package(exd-physics REQUIRED)
+find_package(exd-render REQUIRED)
 find_package(OpenCL REQUIRED)
 
 # FluidX3D-CLI: set FLUIDX3D_SOURCE_DIR to your local checkout path
