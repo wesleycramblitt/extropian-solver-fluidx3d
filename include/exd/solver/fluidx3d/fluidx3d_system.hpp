@@ -1,9 +1,9 @@
 #pragma once
 
-#include <ext/solver/fluidx3d/components.hpp>
-#include <ext/ecs/registry.hpp>
-#include <ext/render/graphics_context.hpp>
-#include <ext/physics/solver/plugin_interface.hpp>
+#include <exd/solver/fluidx3d/components.hpp>
+#include <exd/ecs/registry.hpp>
+#include <exd/render/graphics_context.hpp>
+#include <exd/physics/solver/plugin_interface.hpp>
 
 #include <vector>
 #include <cstdint>
@@ -14,7 +14,7 @@
 // Forward: FluidX3D LBM type (external library)
 class LBM;
 
-namespace ext::solver::fluidx3d {
+namespace exd::solver::fluidx3d {
 
 /// @brief ECS system that drives the FluidX3D LBM solver.
 ///
@@ -28,30 +28,30 @@ namespace ext::solver::fluidx3d {
 ///   graph.add<FluidX3DSystem>(graphics_ctx).in_mode(SimMode::Simulate);
 class FluidX3DSystem {
 public:
-    explicit FluidX3DSystem(ext::render::GraphicsContext& ctx);
+    explicit FluidX3DSystem(exd::render::GraphicsContext& ctx);
     ~FluidX3DSystem();
 
-    void update(ext::ecs::Registry& registry, float dt);
+    void update(exd::ecs::Registry& registry, float dt);
 
     /// Access the underlying solver (for direct coupling queries).
     LBM* solver() { return lbm_; }
 
 private:
-    void create_solver(ext::ecs::Registry& registry,
+    void create_solver(exd::ecs::Registry& registry,
                        const SimulationDomain& domain,
                        const FluidPhysics& physics,
                        SimulationInfo& info,
                        const Transform& xform);
 
     void destroy_solver();
-    void launch_async_rebuild(ext::ecs::Registry& registry,
+    void launch_async_rebuild(exd::ecs::Registry& registry,
                               const SimulationDomain& domain,
                               const FluidPhysics& physics,
                               SimulationInfo& info,
                               const Transform& xform);
     void check_async_rebuild(SimulationInfo& info);
 
-    ext::render::GraphicsContext& ctx_;
+    exd::render::GraphicsContext& ctx_;
     LBM* lbm_ = nullptr;
 
     std::vector<float> prev_particle_x_;
@@ -80,4 +80,4 @@ private:
     uint32_t next_health_check_ = 0;
 };
 
-} // namespace ext::solver::fluidx3d
+} // namespace exd::solver::fluidx3d

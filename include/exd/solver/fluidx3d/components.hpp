@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-namespace ext::solver::fluidx3d {
+namespace exd::solver::fluidx3d {
 
 /// ECS component: domain grid dimensions.
 struct SimulationDomain {
@@ -75,4 +75,4 @@ struct MeshAsset {
 /// ECS component: marks an entity as disabled.
 struct Disabled {};
 
-} // namespace ext::solver::fluidx3d
+} // namespace exd::solver::fluidx3d

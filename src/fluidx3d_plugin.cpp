@@ -1,7 +1,7 @@
-#include <ext/solver/fluidx3d/fluidx3d_plugin.hpp>
+#include <exd/solver/fluidx3d/fluidx3d_plugin.hpp>
 #include <cstdio>
 
-namespace ext::solver::fluidx3d {
+namespace exd::solver::fluidx3d {
 
 FluidX3DPlugin::FluidX3DPlugin() {
     std::printf("[FluidX3DPlugin] Created.\n");
@@ -17,10 +17,10 @@ std::vector<std::string_view> FluidX3DPlugin::supported_bc_types() const {
 }
 
 void FluidX3DPlugin::initialize(
-    const ext::physics::SolverMesh& mesh,
-    std::span<const ext::physics::BoundaryCondition> bcs,
-    std::span<const ext::physics::MaterialAssignment> materials,
-    const ext::physics::ConfigNode& solver_params)
+    const exd::physics::SolverMesh& mesh,
+    std::span<const exd::physics::BoundaryCondition> bcs,
+    std::span<const exd::physics::MaterialAssignment> materials,
+    const exd::physics::ConfigNode& solver_params)
 {
     // TODO: Build LBM solver from mesh + BCs + params.
     // This is where the 841-line FluidX3DSystem::createSolver code goes,
@@ -40,16 +40,16 @@ void FluidX3DPlugin::finalize() {
     // TODO: Delete LBM instance.
 }
 
-std::unique_ptr<ext::physics::FieldAccessor>
+std::unique_ptr<exd::physics::FieldAccessor>
 FluidX3DPlugin::get_field(const std::string& field_name) {
     // TODO: Return velocity/pressure/density fields from LBM.
     return nullptr;
 }
 
-std::unique_ptr<ext::physics::CouplingSurface>
+std::unique_ptr<exd::physics::CouplingSurface>
 FluidX3DPlugin::get_coupling_surface(const std::string& surface_name) {
     // TODO: Return coupling surface mesh + fields.
     return nullptr;
 }
 
-} // namespace ext::solver::fluidx3d
+} // namespace exd::solver::fluidx3d

@@ -1,17 +1,17 @@
-#include <ext/solver/fluidx3d/fluidx3d_system.hpp>
-#include <ext/ecs/registry.hpp>
+#include <exd/solver/fluidx3d/fluidx3d_system.hpp>
+#include <exd/ecs/registry.hpp>
 #include <cstdio>
 
-namespace ext::solver::fluidx3d {
+namespace exd::solver::fluidx3d {
 
-FluidX3DSystem::FluidX3DSystem(ext::render::GraphicsContext& ctx)
+FluidX3DSystem::FluidX3DSystem(exd::render::GraphicsContext& ctx)
     : ctx_(ctx) {}
 
 FluidX3DSystem::~FluidX3DSystem() {
     destroy_solver();
 }
 
-void FluidX3DSystem::update(ext::ecs::Registry& registry, float dt) {
+void FluidX3DSystem::update(exd::ecs::Registry& registry, float dt) {
     // Iterate all simulation entities
     for (auto [entity] : registry.view<FluidX3DSolverConfig, FluidPhysics, SimulationInfo>().each()) {
         auto& info = registry.get<SimulationInfo>(entity);
@@ -39,7 +39,7 @@ void FluidX3DSystem::update(ext::ecs::Registry& registry, float dt) {
     }
 }
 
-void FluidX3DSystem::create_solver(ext::ecs::Registry& registry,
+void FluidX3DSystem::create_solver(exd::ecs::Registry& registry,
                                     const SimulationDomain& domain,
                                     const FluidPhysics& physics,
                                     SimulationInfo& info,
@@ -56,7 +56,7 @@ void FluidX3DSystem::destroy_solver() {
     solver_cache_.valid = false;
 }
 
-void FluidX3DSystem::launch_async_rebuild(ext::ecs::Registry& registry,
+void FluidX3DSystem::launch_async_rebuild(exd::ecs::Registry& registry,
                                            const SimulationDomain& domain,
                                            const FluidPhysics& physics,
                                            SimulationInfo& info,
@@ -74,4 +74,4 @@ void FluidX3DSystem::check_async_rebuild(SimulationInfo& info) {
     }
 }
 
-} // namespace ext::solver::fluidx3d
+} // namespace exd::solver::fluidx3d
