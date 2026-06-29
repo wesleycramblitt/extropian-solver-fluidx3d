@@ -2,7 +2,6 @@
 #include <exd/solver/fluidx3d/components.hpp>
 #include <exd/render/graphics_context.hpp>
 #include <exd/render/mesh.hpp>
-#include <exd/render/vertex.hpp>
 #include <exd/render/components.hpp>
 
 #define Mesh F3D_Mesh
@@ -66,7 +65,7 @@ void FluidX3DSystem::launch_async_rebuild(exd::ecs::Registry& registry,
     const math::Quat dr{xform.rot_w, xform.rot_x, xform.rot_y, xform.rot_z};
 
     const float duct_w = static_cast<float>(ny - 2u), duct_h = static_cast<float>(nz - 2u);
-    const float force_mag = ext::core::units::f_from_u_rectangular_duct(duct_w, duct_h, 1.0f, nu, target_u);
+    const float force_mag = static_cast<float>(exd::core::units::f_from_u_rectangular_duct(duct_w, duct_h, 1.0, nu, target_u));
     float fx = 0, fy = 0, fz = 0;
     switch (axis) { case 0: fx = -force_mag; break; case 1: fy = -force_mag; break; case 2: fz = -force_mag; break; default: fx = -force_mag; break; }
 
@@ -165,7 +164,7 @@ void FluidX3DSystem::create_solver(exd::ecs::Registry& registry,
     const uint nx = static_cast<uint>(domain.nx), ny = static_cast<uint>(domain.ny), nz = static_cast<uint>(domain.nz);
     const float nu = phys.nu, target_u = phys.streamwise_velocity;
     const float duct_w = static_cast<float>(ny - 2u), duct_h = static_cast<float>(nz - 2u);
-    const float force_mag = ext::core::units::f_from_u_rectangular_duct(duct_w, duct_h, 1.0f, nu, target_u);
+    const float force_mag = static_cast<float>(exd::core::units::f_from_u_rectangular_duct(duct_w, duct_h, 1.0, nu, target_u));
 
     float fx = 0, fy = 0, fz = 0;
     switch (phys.streamwise_axis) { case 0: fx=-force_mag; break; case 1: fy=-force_mag; break; case 2: fz=-force_mag; break; default: fx=-force_mag; break; }
