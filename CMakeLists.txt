@@ -6,9 +6,32 @@ project(extropian-solver-fluidx3d VERSION 0.1.0 LANGUAGES CXX
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(exd-core REQUIRED)
-find_package(exd-physics REQUIRED)
-find_package(exd-render REQUIRED)
+# ── Dependencies: use FetchContent when not already available ──
+include(FetchContent)
+
+if(NOT TARGET exd::core)
+    FetchContent_Declare(exd-core
+        GIT_REPOSITORY https://github.com/wesleycramblitt/extropian-core.git
+        GIT_TAG main
+    )
+    FetchContent_MakeAvailable(exd-core)
+endif()
+
+if(NOT TARGET exd::physics)
+    FetchContent_Declare(exd-physics
+        GIT_REPOSITORY https://github.com/wesleycramblitt/extropian-physics.git
+        GIT_TAG main
+    )
+    FetchContent_MakeAvailable(exd-physics)
+endif()
+
+if(NOT TARGET exd::render)
+    FetchContent_Declare(exd-render
+        GIT_REPOSITORY https://github.com/wesleycramblitt/extropian-render.git
+        GIT_TAG main
+    )
+    FetchContent_MakeAvailable(exd-render)
+endif()
 find_package(OpenCL REQUIRED)
 
 # FluidX3D-CLI: set FLUIDX3D_SOURCE_DIR to your local checkout path
