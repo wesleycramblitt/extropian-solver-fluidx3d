@@ -45,7 +45,7 @@ add_library(exd-solver-fluidx3d SHARED
     src/fluidx3d_system.cpp
 )
 
-target_include_directories(exd-solver-fluidx3d PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(exd-solver-fluidx3d PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>")
 target_include_directories(exd-solver-fluidx3d PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 target_link_libraries(exd-solver-fluidx3d PUBLIC
